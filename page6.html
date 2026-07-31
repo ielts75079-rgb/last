@@ -6,11 +6,14 @@
   <title>The Friendship Voucher - Page 6</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
     body {
+      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
       background-color: #fef6f9;
       overflow-x: hidden;
       position: relative;
-      padding: 15px;
+      padding: 16px;
       margin: 0;
       display: flex;
       flex-direction: column;
@@ -18,6 +21,7 @@
       justify-content: flex-start;
       min-height: 100vh;
       box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
 
     .page-content {
@@ -26,56 +30,174 @@
       margin: 0 auto;
       text-align: center;
       box-sizing: border-box;
+      position: relative;
+      z-index: 2;
     }
 
     h2 {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
+      font-weight: 700;
       color: #ff4757;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+      animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
+    /* Professional Glassmorphism Timer */
+    #timerDisplay {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #ff6b81;
+      margin-bottom: 16px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 10px 20px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 25px rgba(255, 71, 87, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      animation: pulseGlow 2s infinite ease-in-out, fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Voucher Card Hidden by Default with Smooth Reveal */
     .voucher-card {
       background: #ffffff;
-      border: 3px dashed #ff4757;
-      border-radius: 18px;
-      padding: 22px 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      border: 2px dashed #ff4757;
+      border-radius: 24px;
+      padding: 24px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 15px 35px rgba(255, 71, 87, 0.08);
       position: relative;
+      display: none;
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .voucher-card.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
 
     .voucher-card h3 {
       color: #ff4757;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
+      font-weight: 700;
       margin-bottom: 12px;
+      letter-spacing: 0.5px;
     }
 
     .voucher-card p {
-      font-size: 0.9rem;
-      color: #444;
-      line-height: 1.5;
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.6;
+      margin: 0 0 16px 0;
+      font-weight: 400;
     }
 
     .redeem-btn {
-      background-color: #2ed573;
-      margin-top: 15px;
+      background: linear-gradient(135deg, #2ed573 0%, #26af5f 100%);
+      margin-top: 10px;
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       font-size: 1rem;
-      border-radius: 12px;
+      font-weight: 600;
+      border-radius: 14px;
       box-sizing: border-box;
+      border: none;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(46, 213, 115, 0.3);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .redeem-btn:hover {
-      background-color: #26af5f;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(46, 213, 115, 0.4);
+    }
+
+    .redeem-btn:active {
+      transform: translateY(0);
     }
 
     .nav-btn {
       width: 100%;
       box-sizing: border-box;
       margin-top: 10px;
-      padding: 12px;
+      padding: 14px;
       font-size: 1rem;
+      font-weight: 600;
+      border-radius: 14px;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 8px 20px rgba(255, 71, 87, 0.3);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(255, 71, 87, 0.4);
+    }
+
+    /* Hidden certificate button container with fluid entry */
+    #certificateBtnContainer {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px) scale(0.9);
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    #certificateBtnContainer.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow: 0 0 15px rgba(255, 71, 87, 0.1);
+      }
+      50% {
+        box-shadow: 0 0 25px rgba(255, 71, 87, 0.25);
+      }
+    }
+
+    /* Falling Emojis Animation */
+    .falling-emoji {
+      position: fixed;
+      top: -50px;
+      font-size: 26px;
+      z-index: 999;
+      user-select: none;
+      pointer-events: none;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -85,24 +207,106 @@
   <div class="page-content">
     <h2>Claim Your Special Voucher 🎟️</h2>
     
+    <!-- Professional Countdown Timer -->
+    <div id="timerDisplay">
+      <span>Voucher unlocking in:</span> <strong id="timeNumber">10</strong>s ⏳
+    </div>
+
+    <!-- Voucher Card (Hidden during countdown) -->
     <div class="voucher-card" id="voucher">
       <h3>✨ ULTIMATE BESTIE VOUCHER ✨</h3>
-      <p>This coupon grants the bearer the responsibility of treating me, listening to my nonstop gossip, tolerating all my annoying behavior, sharing all your gossip with me, and letting me steal your snacks, and attention whenever I want.</p>
+      <p>This coupon grants the bearer the responsibility of treating me, listening to my nonstop gossip, tolerating all my annoying behavior, sharing all your gossip with me, and letting me steal your snacks and attention whenever I want.</p>
       <button class="nav-btn redeem-btn" id="claimBtn" onclick="claimVoucher()">Claim Voucher 🎉</button>
     </div>
 
-    <button class="nav-btn" onclick="navigateTo('page7.html')">CLAIM UR CERTIFICATE 🌟</button>
+    <!-- Hidden by default until claimed -->
+    <div id="certificateBtnContainer">
+      <button class="nav-btn" onclick="navigateTo('page7.html')" style="background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%); color: white;">CLAIM UR BESTIE CERTIFICATE 🌟</button>
+    </div>
   </div>
 
   <script>
+    let continuousEmojiInterval = null;
+
+    // Start 10 to 0 countdown on page load
+    window.onload = function() {
+      let timeLeft = 10;
+      const timeNumber = document.getElementById('timeNumber');
+      const timerDisplay = document.getElementById('timerDisplay');
+      const voucherCard = document.getElementById('voucher');
+
+      const countdown = setInterval(() => {
+        timeLeft--;
+        if (timeLeft > 0) {
+          timeNumber.innerText = timeLeft;
+        } else {
+          clearInterval(countdown);
+          // Smooth fade-out for timer
+          timerDisplay.style.transition = 'all 0.4s ease';
+          timerDisplay.style.opacity = '0';
+          timerDisplay.style.transform = 'scale(0.9)';
+          setTimeout(() => {
+            timerDisplay.style.display = 'none';
+            voucherCard.classList.add('show'); // Reveal voucher smoothly
+          }, 400);
+        }
+      }, 1000);
+    };
+
     function claimVoucher() {
       const btn = document.getElementById('claimBtn');
-      btn.innerText = "CLAIMED! ✅ (Successfully Saved)";
-      btn.style.backgroundColor = "#ffa502";
+      
+      // Professional Processing State
+      btn.innerText = "Processing Voucher... ⏳";
+      btn.style.background = "linear-gradient(135deg, #70a1ff 0%, #1e90ff 100%)";
+      btn.style.boxShadow = "0 8px 20px rgba(112, 161, 255, 0.3)";
       btn.disabled = true;
+
+      // Processing delay
+      setTimeout(() => {
+        // Success State
+        btn.innerText = "CLAIMED! ✅ (Successfully Saved)";
+        btn.style.background = "linear-gradient(135deg, #ffa502 0%, #ff7f50 100%)";
+        btn.style.boxShadow = "0 8px 20px rgba(255, 165, 2, 0.3)";
+
+        // Trigger continuous falling emojis
+        startContinuousEmojis();
+
+        // Reveal Certificate Button smoothly
+        setTimeout(() => {
+          const certContainer = document.getElementById('certificateBtnContainer');
+          certContainer.classList.add('show');
+        }, 800);
+
+      }, 2000);
+    }
+
+    function startContinuousEmojis() {
+      const emojis = ['💵', '💸', '💰', '🤑', '🎉', '✨', '🎁', '💖'];
+      
+      continuousEmojiInterval = setInterval(() => {
+        for (let i = 0; i < 3; i++) {
+          const span = document.createElement('div');
+          span.classList.add('falling-emoji');
+          span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+          
+          span.style.left = Math.random() * 100 + 'vw';
+          const duration = Math.random() * 2 + 2.5; // Smooth fall duration
+          span.style.animationDuration = duration + 's';
+          
+          document.body.appendChild(span);
+
+          setTimeout(() => {
+            span.remove();
+          }, duration * 1000);
+        }
+      }, 280);
     }
 
     function navigateTo(url) {
+      if (continuousEmojiInterval) {
+        clearInterval(continuousEmojiInterval);
+      }
       document.getElementById('overlay').classList.add('active');
       setTimeout(() => { window.location.href = url; }, 800);
     }
