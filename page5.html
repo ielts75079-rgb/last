@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Crucial for mobile responsiveness -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>A Letter For You</title>
   <link rel="stylesheet" href="style.css">
   <style>
@@ -15,20 +14,19 @@
       margin: 0;
       padding: 15px;
       box-sizing: border-box;
-      overflow-x: hidden; /* Prevents horizontal shaking */
+      overflow-x: hidden;
     }
 
     .envelope-wrapper {
       position: relative;
-      width: 280px; /* Scaled down slightly for mobile screens */
+      width: 280px;
       height: 180px;
       background-color: #f0e6d2;
-      margin: 40px auto 20px auto;
+      margin: 20px auto 10px auto;
       border-radius: 0 0 10px 10px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     }
 
-    /* Top Flap of Envelope */
     .envelope-flap {
       position: absolute;
       top: 0;
@@ -43,7 +41,6 @@
       z-index: 4;
     }
 
-    /* Wax Stamp Seal holding flap closed */
     .stamp-seal {
       position: absolute;
       top: -15px;
@@ -65,7 +62,6 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
-    /* Envelope Pocket (Front Cover) */
     .envelope-pocket {
       position: absolute;
       bottom: 0;
@@ -79,7 +75,6 @@
       z-index: 3;
     }
 
-    /* The Secret Message Paper */
     .message-paper {
       position: absolute;
       bottom: 10px;
@@ -110,7 +105,6 @@
       margin: 0;
     }
 
-    /* Animation States triggered after 5 seconds */
     .envelope-wrapper.open .stamp-seal {
       opacity: 0;
       transform: translateX(-50%) scale(1.5);
@@ -128,22 +122,22 @@
       z-index: 4;
     }
 
-    /* Quiz Section Layout */
     .quiz-section {
-      margin-top: 30px;
+      margin-top: 15px;
       padding: 0 10px;
     }
 
     .quiz-section h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: #333;
+      margin-bottom: 10px;
     }
 
     .btn-group {
       display: flex;
       justify-content: center;
       gap: 15px;
-      margin-top: 15px;
+      margin-top: 10px;
     }
 
     .quiz-btn {
@@ -163,7 +157,6 @@
       color: #2d3436;
     }
 
-    /* Fullscreen NO Button Style */
     .quiz-btn.fullscreen-no {
       position: fixed !important;
       top: 0 !important;
@@ -175,8 +168,8 @@
       z-index: 99999 !important;
       font-size: 2rem !important;
       font-weight: bold !important;
-      background-color: #55efc4 !important;
-      color: #2d3436 !important;
+      background-color: #ff4757 !important;
+      color: white !important;
       box-shadow: none !important;
       transform: none !important;
       display: flex;
@@ -185,55 +178,49 @@
     }
 
     #finalMessage {
-      font-size: 1.1rem;
-      padding: 0 15px;
-      line-height: 1.5;
+      font-size: 1rem;
+      padding: 0 10px;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
+  <div class="transition-overlay" id="overlay"></div>
 
-  <!-- Envelope with Stamp Seal -->
   <div class="envelope-wrapper" id="envelope">
-    
-    <!-- Top Flap & Stamp Seal -->
     <div class="envelope-flap">
       <div class="stamp-seal">💌</div>
     </div>
-
-    <!-- Inside Message Paper -->
     <div class="message-paper">
       <h3>Dear Bestie,</h3>
-      <p>Thank you for being the most amazing friend in the world. Life is so much brighter and funnier with you in it! 💖</p>
+      <p> I JUST WANTED TO TKE A MOMENT TO TELL U HOW GREATFUL I AM TO HAVE U IN MY LIFE. I FEEL RICH BECAUSE I HAVE U 💖</p>
     </div>
-
-    <!-- Front Envelope Cover -->
     <div class="envelope-pocket"></div>
   </div>
 
-  <!-- Funny Quiz Section -->
   <div class="quiz-section">
     <h3 id="quizTitle">Do you hate me? 👀</h3>
-    <div class="btn-group">
+    <div class="btn-group" id="btnGroup">
       <button class="quiz-btn" id="yesBtn">Yes</button>
       <button class="quiz-btn" id="noBtn">No</button>
     </div>
-    <h2 id="finalMessage" style="margin-top:20px; color:#ff4757; display:none;"></h2>
+    <h2 id="finalMessage" style="margin-top:15px; color:#ff4757; display:none;"></h2>
+    <button class="nav-btn" id="nextPageBtn" style="display:none; width:100%; box-sizing:border-box; margin-top:15px;" onclick="navigateTo('page5.html')">YES, I WILL GIFT U ✨</button>
   </div>
 
   <script>
     const envelope = document.getElementById('envelope');
 
-    // Open envelope seal after 5 seconds
     setTimeout(() => {
       envelope.classList.add('open');
     }, 5000);
 
-    // Playful Quiz Logic
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
     const quizTitle = document.getElementById('quizTitle');
     const finalMessage = document.getElementById('finalMessage');
+    const btnGroup = document.getElementById('btnGroup');
+    const nextPageBtn = document.getElementById('nextPageBtn');
     
     let moveCount = 0;
 
@@ -242,16 +229,15 @@
     yesBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveYesButton(); });
 
     function moveYesButton() {
-      if (moveCount < 6) { // Dodges 6 times safely within mobile view boundaries
-        const x = (Math.random() - 0.5) * 160;
-        const y = (Math.random() - 0.5) * 80;
+      if (moveCount < 6) {
+        const x = (Math.random() - 0.5) * 140;
+        const y = (Math.random() - 0.5) * 60;
         yesBtn.style.transform = `translate(${x}px, ${y}px)`;
         moveCount++;
       } else {
-        // On 7th trigger: Yes disappears, NO takes over the whole screen
         yesBtn.style.display = 'none';
         noBtn.classList.add('fullscreen-no');
-        noBtn.innerText = "NO! (Click Me)";
+        noBtn.innerText = "NO:Click Me";
       }
     }
 
@@ -260,11 +246,17 @@
       noBtn.style.display = 'none';
       noBtn.classList.remove('fullscreen-no');
       quizTitle.style.display = 'none';
+      btnGroup.style.display = 'none';
       
-      // Keeps the envelope visible and displays the final prank text right underneath it
       finalMessage.innerText = "PUCCHU PUCCHU I KNOW U LOVE ME, GIVE ME A BUCKET OF PEPSI AND BARCA AWAY KIT🥤💖";
       finalMessage.style.display = 'block';
+      nextPageBtn.style.display = 'block';
     });
+
+    function navigateTo(url) {
+      document.getElementById('overlay').classList.add('active');
+      setTimeout(() => { window.location.href = url; }, 800);
+    }
   </script>
 </body>
 </html>
