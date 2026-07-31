@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Official Friendship Certificate - Page 7</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #f7f9fc;
+      overflow-x: hidden;
+      position: relative;
+      padding: 15px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+      font-family: 'Georgia', serif;
+    }
+
+    /* Loading Screen Container */
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .loading-spinner {
+      font-size: 3rem;
+      animation: spinBounce 1.5s infinite ease-in-out;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spinBounce {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.2) rotate(180deg); }
+    }
+
+    .loading-title {
+      font-size: 1.1rem;
+      color: #4a5568;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .loading-subtext {
+      font-size: 0.9rem;
+      color: #718096;
+      letter-spacing: 0.5px;
+      animation: pulseText 1.5s infinite alternate;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    @keyframes pulseText {
+      from { opacity: 0.4; }
+      to { opacity: 1; }
+    }
+
+    /* Actual Professional Certificate Content (Hidden Initially) */
+    .certificate-content {
+      display: none;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      box-sizing: border-box;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .certificate-card {
+      background: #fffdf9;
+      border: 2px solid #cbd5e0;
+      outline: 6px solid #f7fafc;
+      outline-offset: -8px;
+      border-radius: 6px;
+      padding: 25px 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      position: relative;
+      text-align: center;
+    }
+
+    .cert-seal {
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+
+    .cert-org {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #718096;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin-bottom: 12px;
+    }
+
+    .certificate-card h2 {
+      color: #2d3748;
+      font-size: 1.15rem;
+      margin-bottom: 15px;
+      font-weight: normal;
+      letter-spacing: 0.5px;
+    }
+
+    .cert-body {
+      font-size: 0.85rem;
+      color: #4a5568;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-family: 'Georgia', serif;
+    }
+
+    .cert-name {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: #1a202c;
+      margin: 10px 0;
+      border-bottom: 1px solid #a0aec0;
+      display: inline-block;
+      padding-bottom: 2px;
+    }
+
+    .signature-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 25px;
+      padding-top: 10px;
+      border-top: 1px solid #e2e8f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .sig-box {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #718096;
+    }
+
+    .sig-line {
+      font-weight: bold;
+      color: #2d3748;
+      font-size: 0.85rem;
+      margin-top: 2px;
+    }
+
+    .restart-btn {
+      background-color: #63b3ed;
+      color: white;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(99, 179, 237, 0.3);
+      transition: background-color 0.2s;
+    }
+
+    .restart-btn:hover {
+      background-color: #4299e1;
+    }
+  </style>
+</head>
+<body>
+  <div class="transition-overlay" id="overlay"></div>
+
+  <!-- Loading Screen for 10 Seconds -->
+  <div class="loading-container" id="loadingScreen">
+    <div class="loading-spinner">🏛️</div>
+    <div class="loading-title">Generating Official Certificate...</div>
+    <div class="loading-subtext">Please wait a moment ⏳</div>
+  </div>
+
+  <!-- Actual Professional Certificate Page Content -->
+  <div class="certificate-content" id="certificateContent">
+    <div class="certificate-card">
+      <div class="cert-seal">⚜️</div>
+      <div class="cert-org">Global Board of Besties</div>
+      <h2>Certificate of Recognition</h2>
+      
+      <div class="cert-body">
+        <p>This document proudly certifies that</p>
+        <div class="cert-name">My Valued Best Friend</div>
+        <p>has successfully completed all evaluation metrics, demonstrating exceptional loyalty, patience, and companionship, and is hereby officially awarded the title of <strong>Certified Best Friend For Life</strong>.</p>
+      </div>
+
+      <div class="signature-section">
+        <div class="sig-box">
+          <div>ISSUED ON</div>
+          <div class="sig-line">Official Date</div>
+        </div>
+        <div class="sig-box">
+          <div>AUTHORIZED BY</div>
+          <div class="sig-line">Hafijul</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="restart-btn" onclick="navigateTo('index.html')">Start Over From Beginning 🔄</button>
+  </div>
+
+  <script>
+    // Automatically switch from loading screen to professional certificate content after 10 seconds (10000ms)
+    setTimeout(() => {
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('certificateContent').style.display = 'block';
+    }, 10000);
+
+    function navigateTo(url) {
+      document.getElementById('overlay').classList.add('active');
+      setTimeout(() => { window.location.href = url; }, 800);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Lifetime Bestie Award - Page 5</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #fef6f9;
+      overflow-x: hidden;
+      position: relative;
+      padding: 10px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    /* Falling Flowers & Stars Animation Overlay */
+    .celebration-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+      overflow: hidden;
+      display: none;
+    }
+
+    .falling-item {
+      position: absolute;
+      top: -50px;
+      font-size: 1.6rem;
+      animation: fallDown 3s linear infinite;
+    }
+
+    @keyframes fallDown {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(105vh) rotate(360deg); opacity: 0.8; }
+    }
+
+    /* Clean Application Form Card - Mobile Optimized */
+    .award-card {
+      position: relative;
+      z-index: 2;
+      background: #ffffff;
+      border: 3px solid #ff7675;
+      border-radius: 18px;
+      padding: 20px 15px;
+      width: 100%;
+      max-width: 380px;
+      margin: 15px auto;
+      box-shadow: 0 6px 20px rgba(255, 118, 117, 0.15);
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .form-header {
+      background-color: #ff7675;
+      color: white;
+      padding: 10px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .question-box {
+      margin-bottom: 15px;
+      display: none;
+      text-align: left;
+    }
+
+    .question-box.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-box p {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #2d3436;
+      margin-bottom: 12px;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .cute-input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #fab1a0;
+      border-radius: 12px;
+      font-size: 1rem;
+      outline: none;
+      text-align: center;
+      background: #fff9f9;
+      color: #333;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+    }
+
+    .cute-input:focus {
+      border-color: #ff7675;
+    }
+
+    /* Options Floating Grid for Q2 - 2 Columns mobile fit */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .option-btn {
+      background: #ffeaa7;
+      border: 2px solid #fdcb6e;
+      padding: 12px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+      color: #2d3436;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.85rem;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .option-btn:active {
+      background: #fdcb6e;
+      transform: scale(0.96);
+    }
+
+    .cute-submit {
+      margin-top: 15px;
+      width: 100%;
+      padding: 12px;
+      background-color: #ff7675;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 118, 117, 0.3);
+      box-sizing: border-box;
+    }
+
+    .error-msg {
+      color: #ff4757;
+      font-size: 0.8rem;
+      margin-top: 8px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Celebration Box */
+    .celebration-box {
+      display: none;
+      text-align: center;
+      animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .trophy-emoji {
+      font-size: 3rem;
+      margin-bottom: 8px;
+    }
+
+    .nav-btn {
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 15px;
+      padding: 12px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="transition-overlay" id="overlay"></div>
+
+  <!-- Falling Flowers & Stars Container -->
+  <div class="celebration-rain" id="rainContainer"></div>
+
+  <div class="award-card">
+    <div class="form-header">Apply Form For Bestie 📝</div>
+
+    <!-- Question 1 -->
+    <div class="question-box active" id="q1Box">
+      <p>1. Who is your best friend?</p>
+      <input type="text" id="ans1" class="cute-input" placeholder="Type name here..." autocomplete="off">
+      <button class="cute-submit" onclick="checkQ1()">Next ✨</button>
+      <div class="error-msg" id="err1"></div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question-box" id="q2Box">
+      <p>2. What is the favorite thing about you that he loved the most?</p>
+      <div class="options-grid">
+        <button class="option-btn" onclick="selectOption('nothing')">1. nothing</button>
+        <button class="option-btn" onclick="selectOption('hair')">2. hair</button>
+        <button class="option-btn" onclick="selectOption('in saree')">3. in saree</button>
+        <button class="option-btn" onclick="selectOption('biceps')">4. biceps</button>
+        <button class="option-btn" onclick="selectOption('eyes')">5. eyes</button>
+        <button class="option-btn" onclick="selectOption('gift')">6. gift</button>
+      </div>
+      <div class="error-msg" id="err2"></div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question-box" id="q3Box">
+      <p>3. Am I your favourite one?</p>
+      <input type="text" id="ans3" class="cute-input" placeholder="Yes or No..." autocomplete="off">
+      <button class="cute-submit" onclick="checkQ3()">Submit Form 💌</button>
+      <div class="error-msg" id="err3"></div>
+    </div>
+
+    <!-- Celebration & Next Button -->
+    <div class="celebration-box" id="celebrationBox">
+      <div class="trophy-emoji">💖🏆✨</div>
+      <h3 style="color: #ff4757; margin-bottom: 8px; font-size: 1.1rem;">Application Approved! 🎉</h3>
+      <p style="font-size: 0.85rem; color: #555; margin-bottom: 15px;">You are officially certified as the ultimate bestie!</p>
+      <button class="nav-btn" onclick="navigateTo('page6.html')">Next Magic Step ✨</button>
+    </div>
+  </div>
+
+  <script>
+    function checkQ1() {
+      const val = document.getElementById('ans1').value.trim().toLowerCase();
+      const err = document.getElementById('err1');
+      if (val === 'hafijul') {
+        err.innerText = "";
+        document.getElementById('q1Box').classList.remove('active');
+        document.getElementById('q2Box').classList.add('active');
+      } else {
+        err.innerText = "❌ Please type 'Hafijul' to proceed!";
+      }
+    }
+
+    function selectOption(choice) {
+      const err = document.getElementById('err2');
+      if (choice === 'in saree') {
+        err.innerText = "";
+        document.getElementById('q2Box').classList.remove('active');
+        document.getElementById('q3Box').classList.add('active');
+      } else {
+        err.innerText = "❌ Not quite right! Try another option 💭";
+      }
+    }
+
+    function checkQ3() {
+      const val = document.getElementById('ans3').value.trim().toLowerCase();
+      const err = document.getElementById('err3');
+      if (val === 'yes') {
+        err.innerText = "";
+        document.getElementById('q3Box').classList.remove('active');
+        document.getElementById('celebrationBox').style.display = 'block';
+        triggerCelebrationRain();
+      } else {
+        err.innerText = "❌ Wrong answer! You know it's YES! 😉";
+      }
+    }
+
+    function triggerCelebrationRain() {
+      const container = document.getElementById('rainContainer');
+      container.style.display = 'block';
+      const symbols = ['🌸', '⭐', '💖', '✨', '🌷', '🌟', '💐', '💫'];
+
+      for (let i = 0; i < 30; i++) {
+        const item = document.createElement('div');
+        item.classList.add('falling-item');
+        item.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        item.style.left = Math.random() * 100 + 'vw';
+        item.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        item.style.animationDelay = (Math.random() * 2) + 's';
+        container.appendChild(item);
+      }
+    }
+
+    function navigateTo(url) {
+      document.getElementById('overlay').classList.add('active');
+      setTimeout(() => { window.location.href = url; }, 800);
+    }
+  </script>
+</body>
+</html>
